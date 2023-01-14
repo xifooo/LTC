@@ -69,58 +69,59 @@ def file_dir_related():
     info["os.path.getsize(filename): 返回文件包含的字符数量"] = "os.path.getsize('F:\\myWS\\main.py')"
     return info
 
-
-def walk():
-    info = {}
-    info["os.walk(top, topdown=True, onerror=None, followlinks=False): \
+class Walk:
+    def __init__(self) -> None:
+        self.info = {}
+        self.info["os.walk(top, topdown=True, onerror=None, followlinks=False): \
         生成一个三元组 (dirpath, dirnames, filenames)"] = "os.walk(os.getcwd(),topdown=True,"
+        """
+        dirpath 是表示目录路径的字符串
+        dirnames 是 dirpath 中子目录名称组成的列表 (excluding '.' and '..')
+        filenames 是 dirpath 中非目录文件名称组成的列表。"""
+        
+        """ https://docs.python.org/zh-cn/3.9/library/os.html?highlight=os%20walk#os.walk """
+        
+    @staticmethod
+    def walk_test_one():
+        description = "将c:\python36目录中的所有文件和子目录打印出来"
+        try:
+            for root, dirs, files in os.walk(r"c:\python36"):
+                print("\033[1;31m-"*8, "directory", "<%s>\033[0m" % root, "-"*10)
+                for directory in dirs:
+                    print("\033[1;34m<DIR>    %s\033[0m" % directory)
+                for file in files:
+                    print("\t\t%s" % file)
+            print(description)
+        except OSError as ex:
+            print(ex)
     
-    """
-    dirpath 是表示目录路径的字符串
-    dirnames 是 dirpath 中子目录名称组成的列表 (excluding '.' and '..')
-    filenames 是 dirpath 中非目录文件名称组成的列表。"""
+    @staticmethod
+    def walk_test_two():
+        description = "统计c:/python36/Lib/email目录下所有子目录的大小, 但是CVS目录除外。"
     
-    """ https://docs.python.org/zh-cn/3.9/library/os.html?highlight=os%20walk#os.walk """
-    return info
-
-def walk_test_one():
-    description = "将c:\python36目录中的所有文件和子目录打印出来"
-    try:
-        for root, dirs, files in os.walk(r"c:\python36"):
-            print("\033[1;31m-"*8, "directory", "<%s>\033[0m" % root, "-"*10)
-            for directory in dirs:
-                print("\033[1;34m<DIR>    %s\033[0m" % directory)
-            for file in files:
-                print("\t\t%s" % file)
+        for root, dirs, files in os.walk('c:/python36/Lib/email'):
+            print(root, "consumes", end=" ")
+            print(sum(os.path.getsize(os.path.join(root, name)) for name in files), end=" ")
+            print("bytes in", len(files), "non-directory files")
+            if 'CVS' in dirs:
+                dirs.remove('CVS')  # 不遍历CVS目录
         print(description)
-    except OSError as ex:
-        print(ex)
-
-def walk_test_two():
-    description = "统计c:/python36/Lib/email目录下所有子目录的大小, 但是CVS目录除外。"
     
-    for root, dirs, files in os.walk('c:/python36/Lib/email'):
-        print(root, "consumes", end=" ")
-        print(sum(os.path.getsize(os.path.join(root, name)) for name in files), end=" ")
-        print("bytes in", len(files), "non-directory files")
-        if 'CVS' in dirs:
-            dirs.remove('CVS')  # 不遍历CVS目录
-    print(description)
-    
-def walk_test_three():
-    description = "递归删除目录的所有内容，危险，请勿随意尝试！"
-    
-    print(description)
-    
-    fix = input("are you sure? Y/N")
-    if fix.lower() == "y":
-        for root, dirs, files in os.walk("c:/python36/Lib/email", topdown=False):
-            for name in files:
-                os.remove(os.path.join(root, name))
-            for name in dirs:
-                os.rmdir(os.path.join(root, name))
-    else:
-        return 0
+    @staticmethod
+    def walk_test_three():
+        description = "递归删除目录的所有内容，危险，请勿随意尝试！"
+        
+        print(description)
+        
+        fix = input("are you sure? Y/N")
+        if fix.lower() == "y":
+            for root, dirs, files in os.walk("c:/python36/Lib/email", topdown=False):
+                for name in files:
+                    os.remove(os.path.join(root, name))
+                for name in dirs:
+                    os.rmdir(os.path.join(root, name))
+        else:
+            return 0
 
 def main():
     info = {}
@@ -130,7 +131,7 @@ def main():
     
     sys_info = system_related()
     file_dir_info = file_dir_related()
-    info = {**sys_info,**file_dir_info}
+    info = {**sys_info, **file_dir_info}
     return info
 
 

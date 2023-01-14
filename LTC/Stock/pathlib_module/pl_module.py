@@ -22,10 +22,10 @@ def file_dir_related():
     info["os.makedirs('d_1/d_2'): 在当前工作目录下, 生成多层递归目录"] = "os.makedirs('first/good')"
     
     # 删
+    info["os.remove('file_name'): 删除一个文件"] = "os.remove('demo.py')"
+
     info["os.rmdir('dir_name'): 删除一个空目录"] = "os.rmdir('first')"
     info["os.removedirs('dir_1/dir_2'): 递归删除空目录"] = "os.removedirs('first')"
-
-    info["os.remove('file_name'): 删除一个文件"] = "os.remove('demo.py')"
     
     # 改
     info["os.chdir('dir_name'): 改变当前脚本工作目录_相当于shell里的cd操作"] = "os.chdir('F:\下载\Compressed')"
@@ -96,16 +96,13 @@ def pl_related():
     print(tmp.is_file())
     print(tmp.is_absolute())
     
-    # windows与posix风格转化
+    # windows与posix风格转化 : Path obj -> str 
     p = pathlib.PureWindowsPath('c:\\windows')
     print(p.as_posix())
     # 获取文件的 uri
     print(p.as_uri())
     return 0
     
-def main():
-    ...
-
 
 if __name__ == "__main__":
     pl_related()
