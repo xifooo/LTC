@@ -11,4 +11,4 @@ from pathlib import Path
 # print(os.path.splitext(__file__)[0])
 # print(os.path.basename(os.path.splitext(__file__)[0]))
 # print(os.path.abspath("."))
-print(Path(__file__).parent)
+print(Path(__file__).parent / "cat.sqlite")

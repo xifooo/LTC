@@ -43,6 +43,9 @@ def quick_sort(lst, low, high):
 #     return lists
 
 A = [2,14,66,21,1,56,8,3,0]
+
 l = len(A)-1
+
 quick_sort(A, 0, l)
+
 print(A)
