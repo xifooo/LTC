@@ -14,5 +14,6 @@ dist
 build
 
 # My configurations:
+.vscode
 db.ini
 deploy_key_rsa
