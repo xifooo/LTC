@@ -1,25 +1,9 @@
 #!/usr/bin/env python
 # -*- encoding: utf-8 -*-
 
+
 import random
 import typing
-from contextlib import contextmanager
-
-
-@contextmanager
-def disorder_lst_pool(lst_length:int):
-    """ 
-    Return a disordered sequence whose length equal to lst_length
-    """
-    if not isinstance(lst_length, int):
-        raise TypeError("the type of lst_length's value wrong ")
-    
-    if lst_length <= 0:
-        raise ValueError("the list length could't be negative!")
-    if 0 < lst_length <= 3:
-        raise ValueError("the list length is too short!")
-    
-    yield [i for i in random.sample(range(100), k=lst_length)]
 
 
 def disorder_lst_gen(lst_length:int):
@@ -38,17 +22,7 @@ def disorder_lst_gen(lst_length:int):
 
 
 def order_lst_gen(lst_length:int):
-    """
-    Return a ordered sequence (increasing from left to right) whose length equal to lst_length
-    """
-    if not isinstance(lst_length, int):
-        raise TypeError("the type of lst_length's value wrong ")
-    
-    if lst_length <= 0:
-        raise ValueError("the list length could't be negative!")
-    if 0 < lst_length <= 3:
-        raise ValueError("the list length is too short!")
-    # quick sort
+
     def quick_sort(lst, low, high):
         """directly sort a list self"""
         if low >= high:

@@ -1,6 +1,6 @@
 # generator 实现单链表
 class Node:
-    def __init__(self,name):
+    def __init__(self, name):
         self.name = name
         self.next = None
         
