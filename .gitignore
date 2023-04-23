@@ -4,7 +4,8 @@ ehthumbs.db
 Desktop.ini
 
 # Python:
-*/__pycache__/
+*__pycache__/
+
 LTC_env
 *.py[cod]
 *.so
